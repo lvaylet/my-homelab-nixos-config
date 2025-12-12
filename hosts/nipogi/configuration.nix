@@ -8,6 +8,7 @@
       ../../modules/services/adguardhome.nix
       ../../modules/services/home-assistant.nix
       ../../modules/services/jellyfin.nix
+      ../../modules/services/caddy.nix
     ];
 
   # Bootloader.
