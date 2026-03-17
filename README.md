@@ -1,11 +1,11 @@
-# NiPoGi NixOS Homelab
+# homelab NixOS Configuration
 
-This repository contains the NixOS configuration for my NiPoGi mini PC, managed with Nix Flakes.
+This repository contains the NixOS configuration for my homelab mini PC, managed with Nix Flakes.
 
 ## Structure
 
 - `flake.nix`: Entry point and inputs (nixpkgs).
-- `hosts/nipogi`: Host-specific configuration.
+- `hosts/homelab`: Host-specific configuration.
     - `configuration.nix`: Main system configuration.
     - `hardware-configuration.nix`: Hardware scan (needs update on actual device).
 - `modules/services`: Modular service definitions.
@@ -18,11 +18,11 @@ This repository contains the NixOS configuration for my NiPoGi mini PC, managed 
 1.  Clone this repository to `/etc/nixos` (or anywhere).
 2.  Generate hardware config if new install:
     ```bash
-    nixos-generate-config --show-hardware-config > hosts/nipogi/hardware-configuration.nix
+    nixos-generate-config --show-hardware-config > hosts/homelab/hardware-configuration.nix
     ```
 3.  Build and switch:
     ```bash
-    nixos-rebuild switch --flake .#nipogi
+    nixos-rebuild switch --flake .#homelab
     ```
 
 ## Services

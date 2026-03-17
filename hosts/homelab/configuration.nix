@@ -18,7 +18,7 @@
   # Use latest kernel for best hardware support on Alder Lake
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  networking.hostName = "nipogi";
+  networking.hostName = "homelab";
 
   # Enable networking
   networking.networkmanager.enable = true;
@@ -59,7 +59,7 @@
     options = "--delete-older-than 30d";
   };
   
-  # mDNS (Avahi) to broadcast nipogi.local
+  # mDNS (Avahi) to broadcast homelab.local
   services.avahi = {
     enable = true;
     nssmdns4 = true;
