@@ -59,6 +59,20 @@
     options = "--delete-older-than 30d";
   };
   
+  # mDNS (Avahi) to broadcast nipogi.local
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+    publish = {
+      enable = true;
+      addresses = true;
+      domain = true;
+      hinfo = true;
+      userServices = true;
+      workstation = true;
+    };
+  };
+
   # Optimization
   nix.settings.auto-optimise-store = true;
 
