@@ -17,9 +17,8 @@
     enable = true;
     extraPackages = with pkgs; [
       intel-media-driver
-      intel-vaapi-driver
-      libva-vdpau-driver
-      libvdpau-va-gl
+      intel-compute-runtime # OpenCL tone mapping
+      vpl-gpu-rt # QSV implementation
     ];
   };
 }

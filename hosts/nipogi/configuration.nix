@@ -15,6 +15,9 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  # Use latest kernel for best hardware support on Alder Lake
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+
   networking.hostName = "nipogi";
 
   # Enable networking
