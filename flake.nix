@@ -15,5 +15,24 @@
         ./hosts/homelab/configuration.nix
       ];
     };
+
+    nixosConfigurations.isoCustom = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+      modules = [
+        # Load official ISO module.
+        "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
+
+        # Configure headless access.
+        ({ pkgs, ... }: {
+          services.openssh.enable = true;
+          users.users.root.openssh.authorizedKeys.keys = [
+            "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJAgaPHMhe3YJuSG4xB166FEVcDP1hr3zxhQi+m9GAtA laurent@DESKTOP-PC"
+          ];
+          # Enable network on boot.
+          networking.networkmanager.enable = true;
+          # TODO Configure Wi-Fi in case Ethernet is not available. Encrypt key with `sops-nix`.
+        })
+      ];
+    };
   };
 }
