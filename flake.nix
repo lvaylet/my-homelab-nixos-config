@@ -16,6 +16,8 @@
       ];
     };
 
+    # Build with:
+    #  nix build .#nixosConfigurations.isoCustom.config.system.build.isoImage
     nixosConfigurations.isoCustom = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [
