@@ -29,6 +29,7 @@
           services.openssh.enable = true;
           users.users.root.openssh.authorizedKeys.keys = [
             "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJAgaPHMhe3YJuSG4xB166FEVcDP1hr3zxhQi+m9GAtA laurent@DESKTOP-PC"
+            "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICyeLKUxxWIpgR796rBG8KaTDjHyGnK3Y6Xxzq71Hedr laurent@nixos-desktop"
           ];
           # Enable network on boot.
           networking.networkmanager.enable = true;
