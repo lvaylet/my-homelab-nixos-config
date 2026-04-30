@@ -6,10 +6,15 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
   };
 
-  outputs = { self, nixpkgs, nixos-hardware, ... }@inputs: {
+  outputs = {
+    self,
+    nixpkgs,
+    nixos-hardware,
+    ...
+  } @ inputs: {
     nixosConfigurations.homelab = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
-      specialArgs = { inherit inputs; };
+      specialArgs = {inherit inputs;};
       modules = [
         nixos-hardware.nixosModules.intel-alder-lake
         ./hosts/homelab/configuration.nix
@@ -25,7 +30,7 @@
         "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
 
         # Configure headless access.
-        ({ pkgs, ... }: {
+        ({pkgs, ...}: {
           services.openssh.enable = true;
           users.users.root.openssh.authorizedKeys.keys = [
             "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJAgaPHMhe3YJuSG4xB166FEVcDP1hr3zxhQi+m9GAtA laurent@DESKTOP-PC"
