@@ -1,5 +1,9 @@
 staging_vm_ip := "192.168.1.150"
 
+# run `just --list`
+default:
+  just --list
+
 build:
   nixos-rebuild build --flake .#homelab --target-host laurent@{{staging_vm_ip}}
 
@@ -15,13 +19,13 @@ run-vm: build-vm
 ssh-to-vm:
   ssh -p 2222 localhost
 
-format:
+fmt:
   alejandra .
 
 lint:
-  statix check
   deadnix
+  statix check
 
 fix:
-  statix fix
   deadnix --edit
+  statix fix
