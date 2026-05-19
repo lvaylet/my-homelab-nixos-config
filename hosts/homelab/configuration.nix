@@ -1,58 +1,40 @@
-{
-  config,
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    # Service modules will be imported here
+
+    ../../modules/common
+
     ../../modules/services/adguardhome.nix
-    ../../modules/services/home-assistant.nix
+    ../../modules/services/filebrowser.nix
+    ../../modules/services/home-automation.nix
     ../../modules/services/jellyfin.nix
-    ../../modules/services/caddy.nix
+    ../../modules/services/media.nix
+    ../../modules/services/qbittorrent.nix
   ];
 
-  # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  # Use latest kernel for best hardware support on Alder Lake
+  # Use latest kernel for best hardware support on Alder Lake.
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   networking.hostName = "homelab";
-
-  # Enable networking
   networking.networkmanager.enable = true;
 
-  # Set your time zone.
-  time.timeZone = "Europe/Paris";
-
-  # Select internationalisation properties.
-  i18n.defaultLocale = "en_US.UTF-8";
-
-  # Define a user account.
-  users.users.laurent = {
-    isNormalUser = true;
-    description = "Laurent";
-    extraGroups = ["networkmanager" "wheel"];
-    packages = with pkgs; [];
-    # initialPassword = "changeme"; # Optional: set an initial password
-  };
-
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
-
-  # List packages installed in system profile.
-  environment.systemPackages = with pkgs; [
-    vim
-    wget
-    git
-    htop
-  ];
-
-  # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
+  # Intel GPU acceleration (VA-API) for N100
+  # nixpkgs.config.packageOverrides = pkgs: {
+  #   intel-vaapi-driver = pkgs.intel-vaapi-driver.override { enableHybridCodec = true; };
+  # };
+  # hardware.graphics = {
+  #   enable = true;
+  #   extraPackages = with pkgs; [
+  #     intel-media-driver
+  #     intel-vaapi-driver
+  #     libva-vdpau-driver
+  #     libvdpau-va-gl
+  #   ];
+  # };
 
   # Garbage Collection
   nix.gc = {
@@ -79,7 +61,10 @@
   nix.settings.auto-optimise-store = true;
 
   # Enable Flakes
-  nix.settings.experimental-features = ["nix-command" "flakes"];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   system.stateVersion = "25.11";
 }

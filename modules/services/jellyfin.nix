@@ -1,26 +1,26 @@
-{
-  config,
-  pkgs,
-  ...
-}: {
+_: {
   services.jellyfin = {
     enable = true;
     openFirewall = true;
   };
 
-  environment.systemPackages = [
-    pkgs.jellyfin
-    pkgs.jellyfin-web
-    pkgs.jellyfin-ffmpeg
+  users.users.jellyfin.extraGroups = [
+    "multimedia"
   ];
 
-  # Hardware acceleration (modern syntax for nixos-unstable)
-  hardware.graphics = {
-    enable = true;
-    extraPackages = with pkgs; [
-      intel-media-driver
-      intel-compute-runtime # OpenCL tone mapping
-      vpl-gpu-rt # QSV implementation
-    ];
-  };
+  # environment.systemPackages = with pkgs; [
+  #   jellyfin
+  #   jellyfin-web
+  #   jellyfin-ffmpeg
+  # ];
+
+  # # Hardware acceleration (modern syntax for nixos-unstable)
+  # hardware.graphics = {
+  #   enable = true;
+  #   extraPackages = with pkgs; [
+  #     intel-media-driver
+  #     intel-compute-runtime # OpenCL tone mapping
+  #     vpl-gpu-rt # QSV implementation
+  #   ];
+  # };
 }

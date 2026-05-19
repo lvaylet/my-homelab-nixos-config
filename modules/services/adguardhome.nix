@@ -1,8 +1,4 @@
-{
-  config,
-  pkgs,
-  ...
-}: {
+_: {
   services.adguardhome = {
     enable = true;
     port = 3000;
@@ -10,6 +6,10 @@
     # We will explicitely open them to be safe and clear.
   };
 
-  networking.firewall.allowedTCPPorts = [3000];
-  networking.firewall.allowedUDPPorts = [53];
+  networking.firewall.allowedTCPPorts = [
+    3000
+  ];
+  networking.firewall.allowedUDPPorts = [
+    53
+  ];
 }
